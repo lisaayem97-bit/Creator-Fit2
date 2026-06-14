@@ -718,7 +718,7 @@ export default function AuthView({ onAuthSuccess, brandColor, creatorName }: Aut
                 <button
                   type="button"
                   onClick={() => setSignupStep(1)}
-                  className="flex-1 py-3 bg-transparent border border-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer text-xs font-bold rounded-xl text-center"
+                  className="flex-1 py-3 bg-zinc-900/60 border border-zinc-800 text-zinc-200 hover:text-white hover:bg-zinc-900 transition-colors cursor-pointer text-xs font-bold rounded-xl text-center"
                 >
                   PREVIOUS
                 </button>
@@ -781,7 +781,7 @@ export default function AuthView({ onAuthSuccess, brandColor, creatorName }: Aut
                 <button
                   type="button"
                   onClick={() => setSignupStep(2)}
-                  className="flex-1 py-3 bg-transparent border border-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer text-xs font-bold rounded-xl text-center"
+                  className="flex-1 py-3 bg-zinc-900/60 border border-zinc-800 text-zinc-200 hover:text-white hover:bg-zinc-900 transition-colors cursor-pointer text-xs font-bold rounded-xl text-center"
                 >
                   PREVIOUS
                 </button>

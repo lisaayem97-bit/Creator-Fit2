@@ -66,6 +66,22 @@ export default function ProgressView({ userProfile, onLogWeight }: ProgressViewP
         user.completedWorkoutsCount = 0;
         user.workoutStreak = 0;
         localStorage.setItem("creatorfit_session_user", JSON.stringify(user));
+
+        // Sync with persistent users list
+        const storedUsersRaw = localStorage.getItem("creatorfit_users");
+        if (storedUsersRaw) {
+          const usersList = JSON.parse(storedUsersRaw);
+          const emailToFind = user.email ? user.email.toLowerCase() : "";
+          const foundIdx = usersList.findIndex((u: any) => u.email.toLowerCase() === emailToFind);
+          if (foundIdx !== -1) {
+            usersList[foundIdx].profile = {
+              ...usersList[foundIdx].profile,
+              completedWorkoutsCount: 0,
+              workoutStreak: 0
+            };
+            localStorage.setItem("creatorfit_users", JSON.stringify(usersList));
+          }
+        }
       }
       window.location.reload();
     } catch (e) {

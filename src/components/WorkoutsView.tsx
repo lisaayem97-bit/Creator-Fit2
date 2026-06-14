@@ -130,6 +130,26 @@ export default function WorkoutsView({
           user.completedWorkoutsCount = (user.completedWorkoutsCount || 0) + 1;
           user.workoutStreak = (user.workoutStreak || 0) + 1;
           localStorage.setItem("creatorfit_session_user", JSON.stringify(user));
+
+          // Sync with creatorfit_users persistent list
+          const storedUsersRaw = localStorage.getItem("creatorfit_users");
+          if (storedUsersRaw) {
+            try {
+              const usersList = JSON.parse(storedUsersRaw);
+              const emailToFind = user.email ? user.email.toLowerCase() : "";
+              const foundIdx = usersList.findIndex((u: any) => u.email.toLowerCase() === emailToFind);
+              if (foundIdx !== -1) {
+                usersList[foundIdx].profile = {
+                  ...usersList[foundIdx].profile,
+                  completedWorkoutsCount: user.completedWorkoutsCount,
+                  workoutStreak: user.workoutStreak
+                };
+                localStorage.setItem("creatorfit_users", JSON.stringify(usersList));
+              }
+            } catch (err) {
+              console.warn(err);
+            }
+          }
         }
       } catch (e) {
         console.warn(e);
@@ -386,7 +406,7 @@ export default function WorkoutsView({
           <button
             onClick={() => setActiveExerciseIndex(prev => prev - 1)}
             disabled={activeExerciseIndex === 0}
-            className="py-4 rounded-xl border border-zinc-800 text-xs font-mono font-bold hover:bg-zinc-900 text-zinc-300 hover:text-white transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-20 disabled:pointer-events-none"
+            className="py-4 rounded-xl border border-zinc-800 text-xs font-mono font-bold hover:bg-zinc-900 text-zinc-300 hover:text-white transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:pointer-events-none"
           >
             <ChevronLeft className="w-3.5 h-3.5" /> Previous Exercise
           </button>

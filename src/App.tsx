@@ -76,6 +76,25 @@ export default function App() {
       };
       setUserProfile(updatedProfile);
       localStorage.setItem("creatorfit_session_user", JSON.stringify(updatedProfile));
+
+      // Sync with persistent user list
+      const storedUsersRaw = localStorage.getItem("creatorfit_users");
+      if (storedUsersRaw) {
+        try {
+          const usersList = JSON.parse(storedUsersRaw);
+          const emailToFind = userProfile.email ? userProfile.email.toLowerCase() : "";
+          const foundIdx = usersList.findIndex((u: any) => u.email.toLowerCase() === emailToFind);
+          if (foundIdx !== -1) {
+            usersList[foundIdx].profile = {
+              ...usersList[foundIdx].profile,
+              currentWeight: weight
+            };
+            localStorage.setItem("creatorfit_users", JSON.stringify(usersList));
+          }
+        } catch (e) {
+          console.warn(e);
+        }
+      }
     }
   };
 

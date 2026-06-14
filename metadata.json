@@ -1,0 +1,6 @@
+{
+  "name": "ACTIVE LIFT",
+  "description": "Premium mobile-first guided fitness app. Access Coach Lisa Ayem's professional workout splits, embedded technique videos, set logging, and core athletic progression.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
